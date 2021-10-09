@@ -1,0 +1,57 @@
+FloatLayout:
+    BoxLayout:
+        orientation: 'vertical'
+        # Main game UI
+        id: main_ui
+        size_hint: 1, 1
+        opacity: .2 if app.showing_map else 1
+        Label:
+            id: toolbar
+            size_hint: 1, .1
+            text: "Health: " + str(app.player.current_health) + '/' + str(app.player.max_health)
+        BoxLayout:
+            size_hint: 1, .7
+            orientation: 'horizontal'
+            Label:
+                id: combat
+                size_hint: .7, 1
+                text: '[color=ff3333][ref=world]Hello[/ref][/color][color=3333ff]World[/color]'
+                markup: True
+            Label:
+                id: monster_toolbar
+                size_hint: 1, .1
+            Button:
+                text: "Embark"
+                on_release:
+                    app.embark()
+            Button:
+                text: "Attack"
+                on_release:
+                    app.attack()
+            Label:
+                id: actions
+                size_hint: .3, 1
+                text: '[color=ff3333][ref=zz]Add text[/ref][/color]'
+                markup: True
+                canvas.before:
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                    Color:
+                        rgba: 1,0,0,.3
+        Label:
+            id: log
+            markup: True
+            size_hint: 1, .2
+    BoxLayout:
+        # Map overlay
+        size_hint: 1, 1
+        pos_hint: {'center_x': .5 if app.showing_map else 1.5}
+        canvas.before:
+            Color:
+                rgba: 1,1,0,.2
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+
