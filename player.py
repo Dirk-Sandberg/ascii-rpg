@@ -41,10 +41,6 @@ class Creature(Widget):
     def take_damage(self, damage):
         self.current_health -= damage
 
-class Player(Creature):
-    name = 'you'
-    attack = 26
-
 
 class Weapon:
     element = '' # Water | Earth | Fire

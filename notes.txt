@@ -3,12 +3,15 @@ Text log sets [color] to make opacity fade
 discoverable map - use compass directions to navigate
 Sacrifice health for luck
 
-classes
+classes - UNLOCKABLE - CHOOSE 2
     Vampire
     Crit spellcaster
     Crit melee
-    LuckMaker (find good items)
-    Alchemist
+    Perceptive (find good items)
+    LuckMaker (deal random additional damage)
+    Alchemist ()
+    Transformer (Ignore negative elemental effects during offense)
+    Brute (ignore negative elemental effects during defense)
     Elementalist (convert weapon element types)
     Bloodthirster (high dmg at low hp)
     Bloodspiller (high dmg at high hp)

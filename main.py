@@ -1,8 +1,8 @@
 from kivy.app import App
 from kivy.core.window import Window
 import monsters
-from player import Player
-
+from player import Creature
+import elements
 from kivy.core.audio import SoundLoader
 from kivy.properties import BooleanProperty, ObjectProperty, Property
 import random
@@ -15,7 +15,7 @@ import random
 
 class MainApp(App):
     floor = 0
-    player = Player()
+    player = Creature(attack=26, element='ice')
     monster = None
 
     def add_line_to_text_log(self, line):
@@ -28,16 +28,23 @@ class MainApp(App):
         widget.text = "You are fighting a " + self.monster.name
 
     def attack(self):
+        # Calculate damage
+        crit = random.randint(1, 100) <= self.player.crit_chance
+        element_modifier = elements.calculate_modifier(self.player.element, self.monster.element)
+        if crit:
+            dealt_damage = self.player.crit_multiplier * self.player.attack * element_modifier - self.monster.defense
+        else:
+            dealt_damage = self.player.attack * element_modifier - self.monster.defense
+
         received_damage = self.monster.attack - self.player.defense
-        dealt_damage = self.player.attack - self.monster.defense
         self.monster.take_damage(dealt_damage)
-        self.root.ids.monster_toolbar.text = f"{self.monster.name}\n--------\nHP: {self.monster.current_health} ATK: {self.monster.attack}"
+        self.root.ids.monster_toolbar.text = f"{self.monster.name}--------HP: {self.monster.current_health} ATK: {self.monster.attack}"
         if self.monster.current_health <= 0:
             self.add_line_to_text_log(f"You killed the {self.monster.name}")
             self.disembark()
             return
         self.player.take_damage(received_damage)
-        self.add_line_to_text_log(f"You took {self.monster.attack - self.player.defense} damage from {self.monster.name}")
+        self.add_line_to_text_log(f"Your elemental bonus was {element_modifier}. You crit the monster for {dealt_damage}. Took {self.monster.attack - self.player.defense} damage from {self.monster.name}")
 
     def disembark(self):
         self.root.ids.combat.text = ''
