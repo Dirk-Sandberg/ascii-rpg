@@ -11,7 +11,10 @@ monsters = [
     'demon'
 ]
 class Monster(Creature):
-    pass
+    element = ''
+    def __init__(self, element='ice', **kwargs):
+        self.element = element
+        super().__init__(**kwargs)
 
 def choose_monster(floor):
     element = random.choice(list(elements.keys()))

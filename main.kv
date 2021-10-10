@@ -8,7 +8,7 @@ BoxLayout:
     Label:
         id: toolbar
         size_hint: 1, .1
-        text: "Health: " + str(app.player.current_health) + '/' + str(app.player.max_health)
+        text: "Health: " + str(app.player.current_health) + '/' + str(app.player.max_health) + " Floor: " + str(app.floor)
     BoxLayout:
         # Maybe make this a screenmanager and toggle between ATK vs SPELL vs NON-ATK phase
         size_hint: 1, .7

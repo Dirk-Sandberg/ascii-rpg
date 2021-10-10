@@ -4,7 +4,9 @@ import monsters
 from player import Creature
 import elements
 from kivy.core.audio import SoundLoader
-from kivy.properties import BooleanProperty, ObjectProperty, Property
+from inventory import Inventory
+from kivy.properties import NumericProperty
+import items
 import random
 # sound = SoundLoader.load('mixkit-retro-arcade-game-over-470.wav')
 # if sound:
@@ -14,8 +16,11 @@ import random
 
 
 class MainApp(App):
-    floor = 0
-    player = Creature(attack=6, element='ice', crit_chance=50)
+    floor = NumericProperty(0)
+    player = Creature(attack=6, crit_chance=50)
+    weapon = items.Weapon(element='normal')
+    inventory = Inventory()
+    armor = None
     monster = None
 
     def add_line_to_text_log(self, line):
@@ -32,7 +37,7 @@ class MainApp(App):
     def attack(self):
         # Calculate damage
         crit = random.randint(1, 100) <= self.player.crit_chance
-        element_modifier = elements.calculate_modifier(self.player.element, self.monster.element)
+        element_modifier = elements.calculate_modifier(self.weapon.element, self.monster.element)
         if crit:
             dealt_damage = self.player.crit_multiplier * self.player.attack * element_modifier - self.monster.defense
         else:
@@ -55,7 +60,11 @@ class MainApp(App):
     def disembark(self):
         self.root.ids.combat.text = ''
         self.root.ids.monster_toolbar.opacity = 0
-        self.add_line_to_text_log("You are back at the village.")
+        item = items.choose_item(self.floor)
+        self.inventory.add_item(item)
+        self.add_line_to_text_log(f"You looted a {item.name} off the {self.monster.name}'s dead body.")
+        self.add_line_to_text_log("You made it to the next floor.")
+        self.floor += 1
         self.root.ids.screen_manager.current = 'home_screen'
 
     def render(self, object):

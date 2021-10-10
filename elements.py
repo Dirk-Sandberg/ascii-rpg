@@ -1,4 +1,6 @@
 def calculate_modifier(e1, e2):
+    if e1 == 'normal':
+        return 1
     if e1 == 'ice':
         if e2 == 'fire':
             return 0.5

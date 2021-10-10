@@ -13,7 +13,6 @@ class Creature(Widget):
     lifesteal = 0
     evasion = 0
     accuracy = 100
-    element = ''
 
     def __init__(self, name = '',
                  max_health=100,
@@ -24,8 +23,7 @@ class Creature(Widget):
                  crit_multiplier=2,
                  lifesteal=0,
                  evasion=0,
-                 accuracy=100,
-                 element=''):
+                 accuracy=100):
         self.name = name
         self.max_health = max_health
         self.number_of_attacks = number_of_attacks
@@ -36,21 +34,9 @@ class Creature(Widget):
         self.lifesteal = lifesteal
         self.evasion = evasion
         self.accuracy = accuracy
-        self.element = element
 
     def take_damage(self, damage):
         self.current_health -= damage
 
-
-class Weapon:
-    element = '' # Water | Earth | Fire
-    damage = ''
-    accuracy = ''
-    name = ''
-
-class Armor:
-    element = ''
-    defense = ''
-    bonus_health = ''
 
 
