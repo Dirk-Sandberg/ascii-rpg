@@ -15,7 +15,7 @@ import random
 
 class MainApp(App):
     floor = 0
-    player = Creature(attack=26, element='ice')
+    player = Creature(attack=6, element='ice', crit_chance=50)
     monster = None
 
     def add_line_to_text_log(self, line):
@@ -46,7 +46,11 @@ class MainApp(App):
             self.disembark()
             return
         self.player.take_damage(received_damage)
-        self.add_line_to_text_log(f"Your elemental bonus was {element_modifier}. You crit the monster for {dealt_damage}. Took {self.monster.attack - self.player.defense} damage from {self.monster.name}")
+        if crit:
+            self.add_line_to_text_log(f"Your elemental bonus was {element_modifier}. You crit the monster for {dealt_damage}. Took {self.monster.attack - self.player.defense} damage from {self.monster.name}")
+        else:
+            self.add_line_to_text_log(f"Your elemental bonus was {element_modifier}. You hurt the monster for {dealt_damage}. Took {self.monster.attack - self.player.defense} damage from {self.monster.name}")
+
 
     def disembark(self):
         self.root.ids.combat.text = ''

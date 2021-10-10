@@ -21,7 +21,7 @@ class Creature(Widget):
                  attack=1,
                  defense=0,
                  crit_chance=0,
-                 crit_multiplier=0,
+                 crit_multiplier=2,
                  lifesteal=0,
                  evasion=0,
                  accuracy=100,
