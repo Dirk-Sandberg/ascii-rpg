@@ -25,7 +25,8 @@ class MainApp(App):
         widget = self.root.ids.combat
         self.root.ids.monster_toolbar.opacity = 1
         self.monster = monsters.choose_monster(self.floor)
-        widget.text = "You are fighting a " + self.monster.name
+        widget.text = f"[[{self.monster.name} art]] "
+        self.root.ids.monster_toolbar.text = f"{self.monster.name}--------HP: {self.monster.current_health} ATK: {self.monster.attack}"
         self.root.ids.screen_manager.current = 'atk_screen'
 
     def attack(self):
