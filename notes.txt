@@ -2,8 +2,9 @@ Map button brings map overlay, causes text fields opacity to go to 0.1
 Text log sets [color] to make opacity fade
 discoverable map - use compass directions to navigate
 Sacrifice health for luck
+Craft spells to create random combinations
 
-classes - UNLOCKABLE - CHOOSE 2
+classes - UNLOCKABLE - CHOOSE 2 - CHOOSE ONE PER LEVEL
     Vampire
     Crit spellcaster
     Crit melee
@@ -16,3 +17,6 @@ classes - UNLOCKABLE - CHOOSE 2
     Bloodthirster (high dmg at low hp)
     Bloodspiller (high dmg at high hp)
     Conquerer (Gain double stats at each level)
+    Acrolyte (Craft additional spells)
+    Poisoner (Melee attacks apply stacking poison damage)
+    Thrasher (Ignore melee armor)

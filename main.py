@@ -26,6 +26,7 @@ class MainApp(App):
         self.root.ids.monster_toolbar.opacity = 1
         self.monster = monsters.choose_monster(self.floor)
         widget.text = "You are fighting a " + self.monster.name
+        self.root.ids.screen_manager.current = 'atk_screen'
 
     def attack(self):
         # Calculate damage
@@ -50,6 +51,7 @@ class MainApp(App):
         self.root.ids.combat.text = ''
         self.root.ids.monster_toolbar.opacity = 0
         self.add_line_to_text_log("You are back at the village.")
+        self.root.ids.screen_manager.current = 'home_screen'
 
     def render(self, object):
         if object.element == 'water':
