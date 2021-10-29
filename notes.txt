@@ -3,6 +3,7 @@ Text log sets [color] to make opacity fade
 discoverable map - use compass directions to navigate
 Sacrifice health for luck
 Craft spells to create random combinations
+ASCII Art archive: https://www.asciiart.eu/weapons/swords
 
 classes - UNLOCKABLE - CHOOSE 2 - CHOOSE ONE PER LEVEL
     Vampire
@@ -18,5 +19,28 @@ classes - UNLOCKABLE - CHOOSE 2 - CHOOSE ONE PER LEVEL
     Bloodspiller (high dmg at high hp)
     Conquerer (Gain double stats at each level)
     Acrolyte (Craft additional spells)
-    Poisoner (Melee attacks apply stacking poison damage)
+    Poisoner (Consecutive melee attacks deal increasing damage)
     Thrasher (Ignore melee armor)
+    Wisher (damage is randomized between 1 and 2x damage)
+
+def calculate_damage():
+    damage_dealt = player.damage
+    damage_taken = monster.damage
+    for trait in classes:
+        damage_dealt = trait.modify_damage_dealt(damage_dealt, player)
+
+    for trait in classes
+        damage_taken = trait.modify_damage_taken(damage_taken, damage_dealt, player)
+
+class Poisoner():
+    def modify_damage_dealt(damage_dealt, player, turn_counter):
+         damage_dealt += player.level * turn_counter
+         return damage_dealt
+
+class BloodthirsterTrait:
+    def modify_damage_dealt(self, damage_dealt, player):
+        damage_dealt = damage_dealt * player.percent_hp
+
+class VampireTrait:
+    def modify_damage_taken(self, damage_taken, damage_dealt, player):
+        damage_taken = damage_taken - damage_dealt/lifesteal_factor
