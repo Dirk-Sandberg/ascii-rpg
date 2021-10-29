@@ -1,0 +1,24 @@
+<InventoryScreen>:
+    on_pre_enter:
+        print("Entered inventory screen")
+    BoxLayout:
+        Button:
+            text: "Back"
+            on_release: app.root.current = 'home_screen'
+        BoxLayout:
+            orientation: 'vertical'
+            GridLayout:
+                cols: 2
+                Label:
+                    id: weapon
+                Label:
+                    id: armor
+            GridLayout:
+                id: inventory
+                rows: 1
+                Label:
+                    id: item0
+                Label:
+                    id: item1
+                Label:
+                    id: item2

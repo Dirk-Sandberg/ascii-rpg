@@ -4,6 +4,7 @@ import monsters
 from player import Creature
 import elements
 from kivy.core.audio import SoundLoader
+from inventory import InventoryScreen
 from kivy.properties import NumericProperty
 import items
 import random
