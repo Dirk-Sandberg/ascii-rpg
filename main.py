@@ -4,6 +4,7 @@ import monsters
 from player import Creature
 import elements
 from kivy.core.audio import SoundLoader
+from elements import element_colors
 from inventory import InventoryScreen
 from kivy.properties import NumericProperty
 import items
@@ -33,8 +34,8 @@ class MainApp(App):
         widget = self.root.ids.combat
         self.root.ids.monster_toolbar.opacity = 1
         self.monster = monsters.choose_monster(self.floor)
-        widget.text = f"[[{self.monster.name} art]] "
-        self.root.ids.monster_toolbar.text = f"{self.monster.name}--------HP: {self.monster.current_health} ATK: {self.monster.attack}"
+        widget.text = self.render(self.monster.element, f"[[{self.monster.art} art]]")
+        self.root.ids.monster_toolbar.text = f"{self.monster.element} {self.monster.name}--------HP: {self.monster.current_health} ATK: {self.monster.attack}"
         self.root.ids.screen_manager.current = 'atk_screen'
 
     def attack(self):
@@ -71,12 +72,8 @@ class MainApp(App):
         self.floor += 1
         self.root.ids.screen_manager.current = 'home_screen'
 
-    def render(self, object):
-        if object.element == 'water':
-            color = 'ff3333'
-        else:
-            color = '3333ff'
-        return f"[color{color}][ref]{object.text}[/ref][/color]"
+    def render(self, element, text):
+        return f"[color={element_colors[element]}]{text}[/color]"
 
     @mainthread
     def change_screen(self, new_screen):
