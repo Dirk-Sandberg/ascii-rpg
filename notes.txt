@@ -12,6 +12,8 @@ classes - UNLOCKABLE - CHOOSE 2 - CHOOSE ONE PER LEVEL
     Perceptive (find good items)
     LuckMaker (deal random additional damage)
     Alchemist ()
+    Beefy (triple hp)
+    Heavy (damage scales with hp)
     Transformer (Ignore negative elemental effects during offense)
     Brute (ignore negative elemental effects during defense)
     Elementalist (convert weapon element types)

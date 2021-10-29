@@ -8,6 +8,15 @@
                 app.change_screen('home_screen')
         BoxLayout:
             orientation: 'vertical'
+            Label:
+                text: "Traits"
+            ScrollView:
+                GridLayout:
+                    cols: 1
+                    id: traits_scrollview
+
+        BoxLayout:
+            orientation: 'vertical'
             GridLayout:
                 cols: 2
                 Label:

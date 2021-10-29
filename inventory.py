@@ -3,6 +3,8 @@ from kivy.app import App
 from items import Weapon, Armor
 from kivy.properties import ObjectProperty, ListProperty
 from kivy.clock import mainthread
+from kivy.uix.label import Label
+
 
 class InventoryScreen(Screen):
     inventory = ListProperty([])
@@ -16,6 +18,9 @@ class InventoryScreen(Screen):
         if len(self.inventory) > 2:
             self.inventory.pop(0)
         self.inventory.append(item)
+
+    def add_trait(self, trait):
+        self.ids.traits_scrollview.add_widget(Label(text=trait.name+'\n'+trait.description))
 
     @mainthread
     def equip_item(self, new_item, old_item_inventory_slot):
