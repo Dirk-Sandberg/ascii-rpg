@@ -32,6 +32,11 @@ def calculate_damage():
     for trait in classes
         damage_taken = trait.modify_damage_taken(damage_taken, damage_dealt, player)
 
+class Thrasher():
+    def modify_damage_dealt():
+        damage_dealt *= monster.defense
+        ** MAKE MONSTER DEFENSE MULTIPLICATIVE, NOT ADDITIVE **
+        # If allowed to reorder, this could be either really good or really bad
 class Poisoner():
     def modify_damage_dealt(damage_dealt, player, turn_counter):
          damage_dealt += player.level * turn_counter

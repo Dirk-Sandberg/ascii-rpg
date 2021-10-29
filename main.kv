@@ -1,51 +1,63 @@
 #:import TextLog text_log.TextLog
 #:import NoTransition kivy.uix.screenmanager.NoTransition
-BoxLayout:
-    orientation: 'vertical'
-    # Main game UI
-    id: main_ui
-    size_hint: 1, 1
-    Label:
-        id: toolbar
-        size_hint: 1, .1
-        text: "Health: " + str(app.player.current_health) + '/' + str(app.player.max_health) + " Floor: " + str(app.floor)
-    BoxLayout:
-        # Maybe make this a screenmanager and toggle between ATK vs SPELL vs NON-ATK phase
-        size_hint: 1, .7
-        orientation: 'vertical'
-        Label:
-            id: combat
-            size_hint: .7, 1
-            markup: True
-        Label:
-            id: monster_toolbar
-            size_hint: 1, .1
-        ScreenManager:
-            id: screen_manager
-            transition: NoTransition()
-            Screen:
-                name: 'home_screen'
-                BoxLayout:
-                    Button:
-                        text: "Embark"
-                        on_release:
-                            app.embark()
-            Screen:
-                name: 'atk_screen'
-                BoxLayout:
-                    Button:
-                        text: "Attack"
-                        on_release:
-                            app.attack()
-                    Button:
-                        text: "Cast Spell"
-                        on_release: app.cast_spell()
-            Screen:
-                name: 'spell_screen'
-                BoxLayout:
-                    Label:
-                        text: "No spells yet"
-    TextLog:
-        id: log
-        markup: True
-        size_hint: 1, .2
+#:import InventoryScreen inventory.InventoryScreen
+ScreenManager:
+    Screen:
+        name: 'home_screen'
+        BoxLayout:
+            orientation: 'vertical'
+            # Main game UI
+            id: main_ui
+            size_hint: 1, 1
+            Label:
+                id: toolbar
+                size_hint: 1, .1
+                text: "Health: " + str(app.player.current_health) + '/' + str(app.player.max_health) + " Floor: " + str(app.floor)
+            BoxLayout:
+                # Maybe make this a screenmanager and toggle between ATK vs SPELL vs NON-ATK phase
+                size_hint: 1, .7
+                orientation: 'vertical'
+                Label:
+                    id: combat
+                    size_hint: .7, 1
+                    markup: True
+                Label:
+                    id: monster_toolbar
+                    size_hint: 1, .1
+                ScreenManager:
+                    id: screen_manager
+                    transition: NoTransition()
+                    Screen:
+                        name: 'home_screen'
+                        BoxLayout:
+                            Button:
+                                text: "Embark"
+                                on_release:
+                                    app.embark()
+                            Button:
+                                text: "Inventory"
+                                on_release:
+                                    root.current = 'inventory_screen'
+                    Screen:
+                        name: 'atk_screen'
+                        BoxLayout:
+                            Button:
+                                text: "Attack"
+                                on_release:
+                                    app.attack()
+                            Button:
+                                text: "Cast Spell"
+                                on_release: app.cast_spell()
+                    Screen:
+                        name: 'spell_screen'
+                        BoxLayout:
+                            Label:
+                                text: "No spells yet"
+            TextLog:
+                id: log
+                markup: True
+                size_hint: 1, .2
+
+    InventoryScreen:
+        name: 'inventory_screen'
+        id: inventory

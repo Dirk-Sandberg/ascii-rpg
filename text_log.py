@@ -1,11 +1,11 @@
 from kivy.uix.label import Label
 
-kv = """
-<TextLog>:
-    text: ''
-    Label:
-        text: root.text
-"""
+# kv = """
+# <TextLog>:
+#     text: ''
+#     Label:
+#         text: root.text
+# """
 class TextLog(Label):
     def add_line(self, line):
         # This could go in a separate class for the Log text area

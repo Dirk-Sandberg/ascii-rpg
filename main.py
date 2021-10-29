@@ -4,7 +4,6 @@ import monsters
 from player import Creature
 import elements
 from kivy.core.audio import SoundLoader
-from inventory import Inventory
 from kivy.properties import NumericProperty
 import items
 import random
@@ -17,9 +16,8 @@ import random
 
 class MainApp(App):
     floor = NumericProperty(0)
-    player = Creature(attack=6, crit_chance=50)
+    player = Creature(attack=66, crit_chance=50)
     weapon = items.Weapon(element='normal')
-    inventory = Inventory()
     armor = None
     monster = None
 
@@ -61,7 +59,7 @@ class MainApp(App):
         self.root.ids.combat.text = ''
         self.root.ids.monster_toolbar.opacity = 0
         item = items.choose_item(self.floor)
-        self.inventory.add_item(item)
+        self.root.ids.inventory.add_item(item)
         self.add_line_to_text_log(f"You looted a {item.name} off the {self.monster.name}'s dead body.")
         self.add_line_to_text_log("You made it to the next floor.")
         self.floor += 1
@@ -73,6 +71,9 @@ class MainApp(App):
         else:
             color = '3333ff'
         return f"[color{color}][ref]{object.text}[/ref][/color]"
+
+
+
 
 
 MainApp().run()
