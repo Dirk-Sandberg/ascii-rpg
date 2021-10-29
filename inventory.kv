@@ -4,21 +4,41 @@
     BoxLayout:
         Button:
             text: "Back"
-            on_release: app.root.current = 'home_screen'
+            on_release:
+                app.change_screen('home_screen')
         BoxLayout:
             orientation: 'vertical'
             GridLayout:
                 cols: 2
                 Label:
                     id: weapon
+                    text: '' if not root.weapon else root.weapon.name
                 Label:
                     id: armor
+                    text: '' if not root.armor else root.armor.name
             GridLayout:
                 id: inventory
                 rows: 1
                 Label:
                     id: item0
+                    text: '' if len(root.inventory) < 1 else root.inventory[0].name
                 Label:
                     id: item1
+                    text: '' if len(root.inventory) < 2 else root.inventory[1].name
                 Label:
                     id: item2
+                    text: '' if len(root.inventory) < 3 else root.inventory[2].name
+            GridLayout:
+                rows: 1
+                Button:
+                    text: "Equip 0"
+                    on_release: root.equip_item(root.inventory[0], 0)
+                    disabled: len(root.inventory) < 1
+                Button:
+                    text: "Equip 1"
+                    on_release: root.equip_item(root.inventory[1], 1)
+                    disabled: len(root.inventory) < 2
+                Button:
+                    text: "Equip 2"
+                    on_release: root.equip_item(root.inventory[2], 2)
+                    disabled: len(root.inventory) < 3

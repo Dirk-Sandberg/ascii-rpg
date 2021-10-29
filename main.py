@@ -8,6 +8,7 @@ from inventory import InventoryScreen
 from kivy.properties import NumericProperty
 import items
 import random
+from kivy.clock import mainthread
 # sound = SoundLoader.load('mixkit-retro-arcade-game-over-470.wav')
 # if sound:
 #     print("Sound found at %s" % sound.source)
@@ -60,7 +61,7 @@ class MainApp(App):
         self.root.ids.combat.text = ''
         self.root.ids.monster_toolbar.opacity = 0
         item = items.choose_item(self.floor)
-        self.root.ids.inventory.add_item(item)
+        self.root.ids.inventory.add_item_to_inventory(item)
         self.add_line_to_text_log(f"You looted a {item.name} off the {self.monster.name}'s dead body.")
         self.add_line_to_text_log("You made it to the next floor.")
         self.floor += 1
@@ -73,7 +74,9 @@ class MainApp(App):
             color = '3333ff'
         return f"[color{color}][ref]{object.text}[/ref][/color]"
 
-
+    @mainthread
+    def change_screen(self, new_screen):
+        self.root.current = new_screen
 
 
 
