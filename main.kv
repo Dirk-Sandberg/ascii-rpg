@@ -19,8 +19,13 @@ ScreenManager:
                 size_hint: 1, .7
                 orientation: 'vertical'
                 Label:
+                    canvas.before:
+                        Color:
+                            rgba: 1,0,0,.1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
                     id: combat
-                    size_hint: .7, 1
                     markup: True
                 Label:
                     id: monster_toolbar

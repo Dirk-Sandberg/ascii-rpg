@@ -34,7 +34,7 @@ class MainApp(App):
         widget = self.root.ids.combat
         self.root.ids.monster_toolbar.opacity = 1
         self.monster = monsters.choose_monster(self.floor)
-        widget.text = self.render(self.monster.element, f"[[{self.monster.art} art]]")
+        widget.text = self.render(self.monster.element, self.monster.art)
         self.root.ids.monster_toolbar.text = f"{self.monster.element} {self.monster.name}--------HP: {self.monster.current_health} ATK: {self.monster.attack}"
         self.root.ids.screen_manager.current = 'atk_screen'
 
@@ -73,7 +73,7 @@ class MainApp(App):
         self.root.ids.screen_manager.current = 'home_screen'
 
     def render(self, element, text):
-        return f"[color={element_colors[element]}]{text}[/color]"
+        return f"[font=RobotoMono-Regular][color={element_colors[element]}]{text}[/color][/font]"
 
     @mainthread
     def change_screen(self, new_screen):
