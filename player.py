@@ -12,6 +12,7 @@ class Creature(Widget):
     crit_multiplier = NumericProperty(0)
     lifesteal = NumericProperty(0)
     evasion = NumericProperty(0)
+    experience = NumericProperty(0)
     accuracy = NumericProperty(100)
 
     def __init__(self, name = '',

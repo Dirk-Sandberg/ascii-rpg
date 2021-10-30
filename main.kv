@@ -14,17 +14,17 @@ ScreenManager:
                 id: toolbar
                 size_hint: 1, .1
                 text: "Health: " + str(app.player.current_health) + '/' + str(app.player.max_health) + " Floor: " + str(app.floor) + " Base Damage: " + str(app.player.attack) + " Base Defense: " + str(app.player.defense)
+                canvas.before:
+                    Color:
+                        rgba: (1-app.player.current_health/app.player.max_health),app.player.current_health/app.player.max_health,0,1
+                    Rectangle:
+                        size: self.width * (app.player.current_health/app.player.max_health), self.height
+                        pos: self.pos
             BoxLayout:
                 # Maybe make this a screenmanager and toggle between ATK vs SPELL vs NON-ATK phase
                 size_hint: 1, .7
                 orientation: 'vertical'
                 Label:
-                    canvas.before:
-                        Color:
-                            rgba: 1,0,0,.1
-                        Rectangle:
-                            size: self.size
-                            pos: self.pos
                     id: combat
                     markup: True
                 Label:
@@ -62,6 +62,7 @@ ScreenManager:
             TextLog:
                 id: log
                 markup: True
+                text_size: self.size
                 size_hint: 1, .2
 
     InventoryScreen:

@@ -22,6 +22,7 @@ class Monster(Creature):
         self.element = element
         self.art = art
         super().__init__(**kwargs)
+        self.attack = 40
 
 def choose_monster(floor):
     element = random.choice(list(elements.keys()))
