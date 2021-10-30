@@ -30,40 +30,35 @@ ScreenManager:
                 Label:
                     id: monster_toolbar
                     size_hint: 1, .1
-                ScreenManager:
-                    id: screen_manager
-                    transition: NoTransition()
-                    Screen:
-                        name: 'home_screen'
-                        BoxLayout:
-                            Button:
-                                text: "Embark"
-                                on_release:
-                                    app.embark()
-                            Button:
-                                text: "Inventory"
-                                on_release:
-                                    root.current = 'inventory_screen'
-                    Screen:
-                        name: 'atk_screen'
-                        BoxLayout:
-                            Button:
-                                text: "Attack"
-                                on_release:
-                                    app.attack()
-                            Button:
-                                text: "Cast Spell"
-                                on_release: app.cast_spell()
-                    Screen:
-                        name: 'spell_screen'
-                        BoxLayout:
-                            Label:
-                                text: "No spells yet"
-            TextLog:
-                id: log
-                markup: True
-                text_size: self.size
-                size_hint: 1, .2
+                TextLog:
+                    id: log
+                    markup: True
+                    text_size: self.size
+                    size_hint: 1, .2
+                GridLayout:
+                    size_hint: 1, .1
+                    rows: 1
+                    Button:
+                        text: "ATTACK"
+                        on_release:
+                            app.attack()
+                        disabled: app.is_home
+                    Button:
+                        text: "MAGIC"
+                        on_release: app.cast_spell()
+                        disabled: app.is_home
+                    Widget:
+                    Widget:
+                    Button:
+                        text: "EMBARK"
+                        on_release:
+                            app.embark()
+                        disabled: not app.is_home
+                    Button:
+                        text: "BAG"
+                        on_release:
+                            root.current = 'inventory_screen'
+                        disabled: not app.is_home
 
     InventoryScreen:
         name: 'inventory_screen'

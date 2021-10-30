@@ -6,7 +6,7 @@ import elements
 from kivy.core.audio import SoundLoader
 from elements import element_colors
 from inventory import InventoryScreen
-from kivy.properties import NumericProperty
+from kivy.properties import NumericProperty, BooleanProperty
 import items
 import random
 from kivy.clock import mainthread
@@ -26,6 +26,7 @@ class MainApp(App):
     weapon = items.Weapon(element='normal')
     armor = None
     monster = None
+    is_home = BooleanProperty(True)
 
     def add_line_to_text_log(self, line):
         self.root.ids.log.add_line(line)
@@ -36,7 +37,7 @@ class MainApp(App):
         self.monster = monsters.choose_monster(self.floor)
         widget.text = self.render(self.monster.element, self.monster.art)
         self.root.ids.monster_toolbar.text = f"{self.monster.element} {self.monster.name}--------HP: {self.monster.current_health} ATK: {self.monster.attack}"
-        self.root.ids.screen_manager.current = 'atk_screen'
+        self.is_home = False
 
     def attack(self):
         # Calculate damage
@@ -70,7 +71,7 @@ class MainApp(App):
         self.add_line_to_text_log(f"You looted a {item.name} off the {self.monster.name}'s dead body.")
         self.add_line_to_text_log("You made it to the next floor.")
         self.floor += 1
-        self.root.ids.screen_manager.current = 'home_screen'
+        self.is_home = True
 
     def render(self, element, text):
         return f"[font=RobotoMono-Regular][color={element_colors[element]}]{text}[/color][/font]"
