@@ -3,14 +3,8 @@
         orientation: 'vertical'
         GridLayout:
             cols: 2
-            BoxLayout:
+            OutlinedBoxLayout:
                 orientation: 'vertical'
-                canvas.before:
-                    Color:
-                        rgba: 1,0,0,.1
-                    Rectangle:
-                        size: self.size
-                        pos: self.pos
                 Label:
                     text: "Weapon"
                     size_hint: 1, None
@@ -22,14 +16,8 @@
                     text: '' if not root.weapon else "[font=RobotoMono-Regular]"+root.weapon.name + "[/font]"
                     size_hint: 1, None
                     markup: True
-            BoxLayout:
+            OutlinedBoxLayout:
                 orientation: 'vertical'
-                canvas.before:
-                    Color:
-                        rgba: 0,0,1,.1
-                    Rectangle:
-                        size: self.size
-                        pos: self.pos
                 Label:
                     text: "Armor"
                     size_hint: 1, None

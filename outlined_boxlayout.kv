@@ -1,0 +1,24 @@
+<OutlinedBoxLayout>:
+    canvas:
+        Color:
+            rgb: 1,1,1
+        Line:
+            points: [self.x+self.inset, self.y+self.inset, self.x+self.inset, self.top-self.inset]
+            width: self.the_line_width
+            dash_length: self.dash_length
+            dash_offset: self.dash_offset
+        Line:
+            points: [self.x+self.inset, self.top-self.inset, self.right-self.inset, self.top-self.inset]
+            width: self.the_line_width
+            dash_length: self.dash_length
+            dash_offset: self.dash_offset
+        Line:
+            points: [self.right-self.inset, self.top-self.inset, self.right-self.inset, self.y+self.inset]
+            width: self.the_line_width
+            dash_length: self.dash_length
+            dash_offset: self.dash_offset
+        Line:
+            points: [self.right-self.inset, self.y+self.inset, self.x+self.inset, self.y+self.inset]
+            width: self.the_line_width
+            dash_length: self.dash_length
+            dash_offset: self.dash_offset

@@ -7,6 +7,7 @@ from kivy.core.audio import SoundLoader
 from elements import element_colors
 from inventory import InventoryScreen
 from traits import TraitsScreen
+from outlined_boxlayout import OutlinedBoxLayout
 from kivy.properties import NumericProperty, BooleanProperty
 import items
 import random

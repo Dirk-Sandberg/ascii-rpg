@@ -2,6 +2,7 @@
 #:import NoTransition kivy.uix.screenmanager.NoTransition
 #:include inventory.kv
 #:include traitsscreen.kv
+#:include outlined_boxlayout.kv
 
 ScreenManager:
     Screen:
@@ -25,12 +26,13 @@ ScreenManager:
                 # Maybe make this a screenmanager and toggle between ATK vs SPELL vs NON-ATK phase
                 size_hint: 1, .7
                 orientation: 'vertical'
+                OutlinedBoxLayout:
+                    Label:
+                        id: combat
+                        markup: True
                 Label:
-                    id: combat
-                    markup: True
-                Label:
-                    id: monster_toolbar
                     size_hint: 1, .1
+                    id: monster_toolbar
                 TextLog:
                     id: log
                     markup: True
