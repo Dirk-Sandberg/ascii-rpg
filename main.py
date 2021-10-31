@@ -6,6 +6,7 @@ import elements
 from kivy.core.audio import SoundLoader
 from elements import element_colors
 from inventory import InventoryScreen
+from traits import TraitsScreen
 from kivy.properties import NumericProperty, BooleanProperty
 import items
 import random
@@ -66,7 +67,7 @@ class MainApp(App):
         self.root.ids.combat.text = ''
         self.root.ids.monster_toolbar.opacity = 0
         item = items.choose_item(self.floor)
-        self.root.ids.inventory.add_trait(Attacker())
+        self.root.ids.traits_screen.add_trait(Attacker())
         self.root.ids.inventory.add_item_to_inventory(item)
         self.add_line_to_text_log(f"You looted a {item.name} off the {self.monster.name}'s dead body.")
         self.add_line_to_text_log("You made it to the next floor.")

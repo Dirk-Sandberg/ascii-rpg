@@ -1,6 +1,7 @@
 #:import TextLog text_log.TextLog
 #:import NoTransition kivy.uix.screenmanager.NoTransition
 #:include inventory.kv
+#:include traitsscreen.kv
 
 ScreenManager:
     Screen:
@@ -59,7 +60,15 @@ ScreenManager:
                         on_release:
                             root.current = 'inventory_screen'
                         disabled: not app.is_home
+                    Button:
+                        text: "TRAITS"
+                        on_release:
+                            root.current = 'traits_screen'
+                        disabled: not app.is_home
 
     InventoryScreen:
         name: 'inventory_screen'
         id: inventory
+    TraitsScreen:
+        name: 'traits_screen'
+        id: traits_screen

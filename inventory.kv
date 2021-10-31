@@ -1,53 +1,79 @@
 <InventoryScreen>:
-    on_pre_enter:
-        print("Entered inventory screen")
     BoxLayout:
-        Button:
-            text: "Back"
-            on_release:
-                app.change_screen('home_screen')
-        BoxLayout:
-            orientation: 'vertical'
-            Label:
-                text: "Traits"
-            ScrollView:
-                GridLayout:
-                    cols: 1
-                    id: traits_scrollview
-
-        BoxLayout:
-            orientation: 'vertical'
-            GridLayout:
-                cols: 2
+        orientation: 'vertical'
+        GridLayout:
+            cols: 2
+            BoxLayout:
+                orientation: 'vertical'
+                canvas.before:
+                    Color:
+                        rgba: 1,0,0,.1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                Label:
+                    text: "Weapon"
+                    size_hint: 1, None
                 Label:
                     id: weapon
-                    text: '' if not root.weapon else root.weapon.name
+                    text: '' if not root.weapon else "[font=RobotoMono-Regular]"+root.weapon.art + "[/font]"
+                    markup: True
+                Label:
+                    text: '' if not root.weapon else "[font=RobotoMono-Regular]"+root.weapon.name + "[/font]"
+                    size_hint: 1, None
+                    markup: True
+            BoxLayout:
+                orientation: 'vertical'
+                canvas.before:
+                    Color:
+                        rgba: 0,0,1,.1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                Label:
+                    text: "Armor"
+                    size_hint: 1, None
                 Label:
                     id: armor
-                    text: '' if not root.armor else root.armor.name
-            GridLayout:
-                id: inventory
-                rows: 1
+                    markup: True
+                    text: '' if not root.armor else "[font=RobotoMono-Regular]"+root.armor.art + "[/font]"
                 Label:
-                    id: item0
-                    text: '' if len(root.inventory) < 1 else root.inventory[0].name
-                Label:
-                    id: item1
-                    text: '' if len(root.inventory) < 2 else root.inventory[1].name
-                Label:
-                    id: item2
-                    text: '' if len(root.inventory) < 3 else root.inventory[2].name
-            GridLayout:
-                rows: 1
-                Button:
-                    text: "Equip 0"
-                    on_release: root.equip_item(root.inventory[0], 0)
-                    disabled: len(root.inventory) < 1
-                Button:
-                    text: "Equip 1"
-                    on_release: root.equip_item(root.inventory[1], 1)
-                    disabled: len(root.inventory) < 2
-                Button:
-                    text: "Equip 2"
-                    on_release: root.equip_item(root.inventory[2], 2)
-                    disabled: len(root.inventory) < 3
+                    text: '' if not root.armor else "[font=RobotoMono-Regular]"+root.armor.name + "[/font]"
+                    size_hint: 1, None
+                    markup: True
+        GridLayout:
+            id: inventory
+            rows: 1
+            Label:
+                id: item0
+                text: '' if len(root.inventory) < 1 else root.inventory[0].art
+            Label:
+                id: item1
+                text: '' if len(root.inventory) < 2 else root.inventory[1].art
+            Label:
+                id: item2
+                text: '' if len(root.inventory) < 3 else root.inventory[2].art
+        GridLayout:
+            rows: 1
+            size_hint: 1, .2
+            Button:
+                text: "Back"
+                on_release:
+                    app.change_screen('home_screen')
+            Button:
+                text: "Equip"
+                on_release: root.equip_item(root.inventory[0], 0)
+                disabled: len(root.inventory) < 1
+                opacity: 1-float(len(root.inventory) < 1)
+            Button:
+                text: "Equip"
+                on_release: root.equip_item(root.inventory[1], 1)
+                disabled: len(root.inventory) < 2
+                opacity: 1-float(len(root.inventory) < 1)
+            Button:
+                text: "Equip"
+                on_release: root.equip_item(root.inventory[2], 2)
+                disabled: len(root.inventory) < 3
+                opacity: 1-float(len(root.inventory) < 1)
+
+
