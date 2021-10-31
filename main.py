@@ -14,6 +14,9 @@ import random
 from kivy.clock import mainthread
 from traits import Attacker
 
+with open("art/camp.txt", "r") as the_file:
+    HOME_ART = the_file.read()
+
 
 # sound = SoundLoader.load('mixkit-retro-arcade-game-over-470.wav')
 # if sound:
@@ -29,6 +32,13 @@ class MainApp(App):
     armor = None
     monster = None
     is_home = BooleanProperty(True)
+
+    def on_start(self):
+        self.show_homescreen(text="You're sitting in front of a campfire")
+
+    def show_homescreen(self, text="You're back at the campfire"):
+        self.root.ids.combat.text = HOME_ART
+        self.add_line_to_text_log(text)
 
     def add_line_to_text_log(self, line):
         self.root.ids.log.add_line(line)
@@ -65,7 +75,7 @@ class MainApp(App):
 
 
     def disembark(self):
-        self.root.ids.combat.text = ''
+        self.root.ids.combat.text = HOME_ART
         self.root.ids.monster_toolbar.opacity = 0
         item = items.choose_item(self.floor)
         self.root.ids.traits_screen.add_trait(Attacker())

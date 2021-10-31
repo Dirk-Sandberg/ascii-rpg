@@ -30,5 +30,5 @@ def choose_monster(floor):
     return Monster(name=name, art= load_txt_art(monsters_and_art[name]['art']), element=element)
 
 def load_txt_art(name):
-    with open(f"art/{name}.txt", "r") as f:
+    with open(f"art/monsters/{name}.txt", "r") as f:
         return f.read()
