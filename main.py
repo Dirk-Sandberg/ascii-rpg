@@ -8,7 +8,7 @@ from elements import element_colors
 from inventory import InventoryScreen
 from traits import TraitsScreen
 from outlined_boxlayout import OutlinedBoxLayout
-from kivy.properties import NumericProperty, BooleanProperty
+from kivy.properties import NumericProperty, BooleanProperty, ObjectProperty
 import items
 import random
 from kivy.clock import mainthread
@@ -30,7 +30,7 @@ class MainApp(App):
     player = Creature(attack=66, crit_chance=50)
     weapon = items.Weapon(element='normal')
     armor = None
-    monster = None
+    monster = Creature(attack=0, crit_chance=0)
     is_home = BooleanProperty(True)
 
     def on_start(self):
@@ -48,7 +48,7 @@ class MainApp(App):
         self.root.ids.monster_toolbar.opacity = 1
         self.monster = monsters.choose_monster(self.floor)
         widget.text = self.render(self.monster.element, self.monster.art)
-        self.root.ids.monster_toolbar.text = f"{self.monster.element} {self.monster.name}--------HP: {self.monster.current_health} ATK: {self.monster.attack}"
+        # self.root.ids.monster_toolbar.text = f"{self.monster.element} {self.monster.name}--------HP: {self.monster.current_health} ATK: {self.monster.attack}"
         self.is_home = False
 
     def attack(self):
@@ -62,7 +62,7 @@ class MainApp(App):
 
         received_damage = self.monster.attack - self.player.defense
         self.monster.take_damage(dealt_damage)
-        self.root.ids.monster_toolbar.text = f"{self.monster.name}--------HP: {self.monster.current_health} ATK: {self.monster.attack}"
+        # self.root.ids.monster_toolbar.text = f"{self.monster.name}--------HP: {self.monster.current_health} ATK: {self.monster.attack}"
         if self.monster.current_health <= 0:
             self.add_line_to_text_log(f"You killed the {self.monster.name}")
             self.disembark()
@@ -72,7 +72,7 @@ class MainApp(App):
             self.add_line_to_text_log(f"Your elemental bonus was {element_modifier}. You crit the monster for {dealt_damage}. Took {self.monster.attack - self.player.defense} damage from {self.monster.name}")
         else:
             self.add_line_to_text_log(f"Your elemental bonus was {element_modifier}. You hurt the monster for {dealt_damage}. Took {self.monster.attack - self.player.defense} damage from {self.monster.name}")
-
+        print("???", self.monster.current_health)
 
     def disembark(self):
         self.root.ids.combat.text = HOME_ART
