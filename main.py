@@ -18,7 +18,7 @@ with open("art/camp.txt", "r") as the_file:
     HOME_ART = the_file.read()
 
 
-# sound = SoundLoader.load('mixkit-retro-arcade-game-over-470.wav')
+# sound = SoundLoader.load('sounds/mixkit-retro-arcade-game-over-470.wav')
 # if sound:
 #     print("Sound found at %s" % sound.source)
 #     print("Sound is %.3f seconds" % sound.length)
