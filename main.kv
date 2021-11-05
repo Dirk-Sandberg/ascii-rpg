@@ -36,13 +36,10 @@ ScreenManager:
                     text: '' if not app.monster else "Health: " + str(app.monster.current_health) + '/' + str(app.monster.max_health) + " Base Damage: " + str(app.monster.attack) + " Base Defense: " + str(app.monster.defense)
                     canvas.before:
                         Color:
-                            rgba: (0,0,0,0) if not app.monster else ((1-app.monster.current_health/app.monster.max_health),app.monster.current_health/app.monster.max_health,1,1)
+                            rgba: (0,0,0,0) if not app.monster else ((1-app.monster.current_health/app.monster.max_health),app.monster.current_health/app.monster.max_health,0,1)
                         Rectangle:
                             size: 0 if not app.monster else (self.width * (app.monster.current_health/app.monster.max_health)), self.height
                             pos: self.pos
-                Label:
-                    text: '' if not app.monster else "Health: " + str(app.monster.current_health) + '/' + str(app.monster.max_health) + " Base Damage: " + str(app.monster.attack) + " Base Defense: " + str(app.monster.defense)
-#                    text: str(0 if not app.monster else str(app.monster.current_health) +'/'+ str(app.monster.max_health))
 
 
                 TextLog:

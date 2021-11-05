@@ -11,6 +11,7 @@ from outlined_boxlayout import OutlinedBoxLayout
 from kivy.properties import NumericProperty, BooleanProperty, ObjectProperty
 import items
 import random
+from monsters import Monster
 from kivy.clock import mainthread
 from traits import Attacker
 
@@ -27,10 +28,10 @@ with open("art/camp.txt", "r") as the_file:
 
 class MainApp(App):
     floor = NumericProperty(0)
-    player = Creature(attack=66, crit_chance=50)
+    player = Creature(attack=30, crit_chance=50, defense=30)
+    monster = Monster(attack=0, crit_chance=0)
     weapon = items.Weapon(element='normal')
     armor = None
-    monster = Creature(attack=0, crit_chance=0)
     is_home = BooleanProperty(True)
 
     def on_start(self):
@@ -46,7 +47,7 @@ class MainApp(App):
     def embark(self):
         widget = self.root.ids.combat
         self.root.ids.monster_toolbar.opacity = 1
-        self.monster = monsters.choose_monster(self.floor)
+        self.monster.choose_new_monster(self.floor)
         widget.text = self.render(self.monster.element, self.monster.art)
         # self.root.ids.monster_toolbar.text = f"{self.monster.element} {self.monster.name}--------HP: {self.monster.current_health} ATK: {self.monster.attack}"
         self.is_home = False
@@ -73,6 +74,7 @@ class MainApp(App):
         else:
             self.add_line_to_text_log(f"Your elemental bonus was {element_modifier}. You hurt the monster for {dealt_damage}. Took {self.monster.attack - self.player.defense} damage from {self.monster.name}")
         print("???", self.monster.current_health)
+        print("EGG", self.player.current_health)
 
     def disembark(self):
         self.root.ids.combat.text = HOME_ART
