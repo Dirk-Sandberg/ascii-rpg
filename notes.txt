@@ -24,6 +24,7 @@ classes - UNLOCKABLE - CHOOSE 2 - CHOOSE ONE PER LEVEL
     Poisoner (Consecutive melee attacks deal increasing damage)
     Thrasher (Ignore melee armor)
     Wisher (damage is randomized between 1 and 2x damage)
+    Balance (Can dual wield weapons)
 
 def calculate_damage():
     damage_dealt = player.damage

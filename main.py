@@ -76,7 +76,7 @@ class MainApp(App):
         print("EGG", self.player.current_health)
 
     def disembark(self):
-        self.root.ids.combat.text = HOME_ART
+        self.show_homescreen()
         self.root.ids.monster_toolbar.opacity = 0
         item = items.choose_item(self.floor)
         self.root.ids.traits_screen.add_trait(Attacker())

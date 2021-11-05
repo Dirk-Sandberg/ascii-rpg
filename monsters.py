@@ -27,8 +27,8 @@ class Monster(Creature):
     def choose_new_monster(self, floor):
         element = random.choice(list(elements.keys()))
         name = random.choice(list(monsters_and_art.keys()))
-        self.attack = random.choice(range(100))
-        self.max_health = random.choice(range(100))
+        self.attack = random.choice(range(1, 100))
+        self.max_health = random.choice(range(1, 100))
         self.current_health = self.max_health
         self.name = name
         self.element = element

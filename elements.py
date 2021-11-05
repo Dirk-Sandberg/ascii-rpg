@@ -17,6 +17,7 @@ def calculate_modifier(e1, e2):
             return 2
         if e2 == 'fire':
             return 0.5
+
 element_colors = {
     'nature': '00FF00',
     'ice': '0000FF',

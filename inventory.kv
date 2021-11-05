@@ -32,10 +32,30 @@
         GridLayout:
             id: inventory
             rows: 1
+            BoxLayout:
+                orientation: 'vertical'
+                Label:
+                    canvas.before:
+                        Color:
+                            rgba: 1,0,0,.1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    height: self.texture_size[1]
+                    size_hint: 1, None
+                    id: item0
+                    markup: True
+                    text: '' if len(root.inventory) < 1 else "[font=RobotoMono-Regular]" + root.inventory[0].name + "[/font]"
+                Label:
+                    text: '' if len(root.inventory) < 1 else "[font=RobotoMono-Regular]" + root.compare_stats(root.inventory[0]) + "[/font]"
+                    markup: True
+                    canvas.before:
+                        Color:
+                            rgba: 1,1,0,.1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
             Label:
-                id: item0
-                markup: True
-                text: '' if len(root.inventory) < 1 else "[font=RobotoMono-Regular]" + root.inventory[0].art + "[/font]"
             Label:
                 id: item1
                 markup: True

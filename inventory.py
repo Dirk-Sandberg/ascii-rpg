@@ -4,7 +4,7 @@ from items import Weapon, Armor
 from kivy.properties import ObjectProperty, ListProperty
 from kivy.clock import mainthread
 from kivy.uix.label import Label
-
+import json
 
 class InventoryScreen(Screen):
     inventory = ListProperty([])
@@ -13,6 +13,41 @@ class InventoryScreen(Screen):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    def compare_stats(self, item):
+        all_stat_strings = [
+            self.stat_string(item, 'defense'),
+            self.stat_string(item, 'attack'),
+            self.stat_string(item, 'crit_chance'),
+            self.stat_string(item, 'crit_multiplier')
+        ]
+        stat_strings = []
+        for stat_string in all_stat_strings:
+            if stat_string:
+                stat_strings.append(stat_string)
+
+        return "\n".join(line for line in stat_strings)
+
+    def stat_string(self, item, attribute):
+        player = App.get_running_app().player
+        try:
+            value = getattr(item, attribute)
+        except:
+            # stat doesn't exist on this piece of equipment
+            return ''
+        diff = value - getattr(player, attribute)
+        if diff > 0:
+            # Green
+            color = "32CD32"
+            operator = '+'
+        elif diff < 0:
+            # Red
+            color = "FF0000"
+            operator = '-'
+        elif diff == 0:
+            color = "FFFFFF"
+            operator = ''
+        return f"{attribute.replace('_',' ').title()}: {value} [color={color}]({operator}{abs(diff)})[/color]"
 
     def add_item_to_inventory(self, item):
         if len(self.inventory) > 2:
