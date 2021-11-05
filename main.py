@@ -38,7 +38,7 @@ class MainApp(App):
         self.show_homescreen(text="You're sitting in front of a campfire")
 
     def show_homescreen(self, text="You're back at the campfire"):
-        self.root.ids.combat.text = HOME_ART
+        self.root.ids.combat.text = self.render('normal', HOME_ART)
         self.add_line_to_text_log(text)
 
     def add_line_to_text_log(self, line):

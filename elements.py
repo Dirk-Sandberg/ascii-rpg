@@ -20,7 +20,8 @@ def calculate_modifier(e1, e2):
 element_colors = {
     'nature': '00FF00',
     'ice': '0000FF',
-    'fire': 'FF0000'
+    'fire': 'FF0000',
+    'normal': 'FFFFFF'
 }
 ice_adjectives = [
     'Glacial',

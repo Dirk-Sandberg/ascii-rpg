@@ -55,9 +55,11 @@ class Armor:
 
 def choose_item(floor):
     if random.randint(1, 2) == 1:
-        item = Armor(name='shield', art='', defense = 5)
+        item_name = random.choice(list(armor.keys()))
+        item_art = armor[item_name]
+        item = Armor(name=item_name, art=item_art, defense=5)
     else:
         item_name = random.choice(list(weapons.keys()))
         item_art = weapons[item_name]
-        item = Weapon(name=item_name, art=item_art, attack = 5)
+        item = Weapon(name=item_name, art=item_art, attack=5)
     return item

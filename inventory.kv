@@ -34,13 +34,16 @@
             rows: 1
             Label:
                 id: item0
-                text: '' if len(root.inventory) < 1 else root.inventory[0].art
+                markup: True
+                text: '' if len(root.inventory) < 1 else "[font=RobotoMono-Regular]" + root.inventory[0].art + "[/font]"
             Label:
                 id: item1
-                text: '' if len(root.inventory) < 2 else root.inventory[1].art
+                markup: True
+                text: '' if len(root.inventory) < 2 else "[font=RobotoMono-Regular]" + root.inventory[1].art + "[/font]"
             Label:
                 id: item2
-                text: '' if len(root.inventory) < 3 else root.inventory[2].art
+                markup: True
+                text: '' if len(root.inventory) < 3 else "[font=RobotoMono-Regular]" + root.inventory[2].art + "[/font]"
         GridLayout:
             rows: 1
             size_hint: 1, .2
