@@ -27,19 +27,23 @@ ScreenManager:
                 size_hint: 1, .7
                 orientation: 'vertical'
                 OutlinedBoxLayout:
+                    orientation: 'vertical'
                     Label:
                         id: combat
                         markup: True
-                Label:
-                    size_hint: 1, .1
-                    id: monster_toolbar
-                    text: '' if not app.monster else "Health: " + str(app.monster.current_health) + '/' + str(app.monster.max_health) + " Base Damage: " + str(app.monster.attack) + " Base Defense: " + str(app.monster.defense)
-                    canvas.before:
-                        Color:
-                            rgba: (0,0,0,0) if not app.monster else ((1-app.monster.current_health/app.monster.max_health),app.monster.current_health/app.monster.max_health,0,1)
-                        Rectangle:
-                            size: 0 if not app.monster else (self.width * (app.monster.current_health/app.monster.max_health)), self.height
-                            pos: self.pos
+                    BoxLayout:
+                        padding: 15,0,15,15
+                        size_hint: 1, .1
+                        Label:
+                            opacity: 0 if app.is_home else 1
+                            id: monster_toolbar
+                            text: '' if not app.monster else "Health: " + str(app.monster.current_health) + '/' + str(app.monster.max_health) + " Base Damage: " + str(app.monster.attack) + " Base Defense: " + str(app.monster.defense)
+                            canvas.before:
+                                Color:
+                                    rgba: (0,0,0,0) if not app.monster else ((1-app.monster.current_health/app.monster.max_health),app.monster.current_health/app.monster.max_health,0,1)
+                                Rectangle:
+                                    size: 0 if not app.monster else (self.width * (app.monster.current_health/app.monster.max_health)), self.height
+                                    pos: self.pos
 
 
                 TextLog:

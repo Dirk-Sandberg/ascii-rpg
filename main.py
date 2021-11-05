@@ -49,7 +49,6 @@ class MainApp(App):
         self.root.ids.monster_toolbar.opacity = 1
         self.monster.choose_new_monster(self.floor)
         widget.text = self.render(self.monster.element, self.monster.art)
-        # self.root.ids.monster_toolbar.text = f"{self.monster.element} {self.monster.name}--------HP: {self.monster.current_health} ATK: {self.monster.attack}"
         self.is_home = False
 
     def attack(self):
