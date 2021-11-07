@@ -28,6 +28,14 @@ class Weapon:
     defense = 0
     accuracy = ''
     art = ''
+    modifiable_stats = [
+        'attack',
+        'crit_chance',
+        'crit_multiplier',
+        'lifesteal',
+        'accuracy',
+        'number_of_attacks'
+    ]
 
     def __init__(self, name=STARTING_WEAPON, element='ice', art=weapons[STARTING_WEAPON], accuracy=100, attack=1):
         self.name = name
@@ -44,6 +52,11 @@ class Armor:
     defense = ''
     bonus_health = ''
     art = ''
+    modifiable_stats = [
+        'defense',
+        'max_health',
+        'evasion'
+    ]
 
     def __init__(self, name=STARTING_ARMOR, element='ice', art=armor[STARTING_ARMOR], defense=1, bonus_health=0):
         self.name = name
@@ -57,9 +70,19 @@ def choose_item(floor):
     if random.randint(1, 2) == 1:
         item_name = random.choice(list(armor.keys()))
         item_art = armor[item_name]
-        item = Armor(name=item_name, art=item_art, defense=5)
+        stats = {}
+        for stat in Armor.modifiable_stats:
+            stats[stat] = random.choice(range(1, 100))
+        item = Armor(name=item_name, art=item_art)
+        for stat in stats:
+            setattr(item, stat, stats[stat])
     else:
         item_name = random.choice(list(weapons.keys()))
         item_art = weapons[item_name]
-        item = Weapon(name=item_name, art=item_art, attack=5)
+        stats = {}
+        for stat in Weapon.modifiable_stats:
+            stats[stat] = random.choice(range(1, 100))
+        item = Weapon(name=item_name, art=item_art)
+        for stat in stats:
+            setattr(item, stat, stats[stat])
     return item

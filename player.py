@@ -4,16 +4,20 @@ from kivy.properties import NumericProperty
 class Creature(Widget):
     name = ''
     current_health = NumericProperty(100)
-    max_health = NumericProperty(100)
+    experience = NumericProperty(0)
+
+    # Offensive stats, modifiable by weapons
     number_of_attacks = NumericProperty(1)
     attack = NumericProperty(1)
-    defense = NumericProperty(0)
     crit_chance = NumericProperty(0)
     crit_multiplier = NumericProperty(0)
     lifesteal = NumericProperty(0)
-    evasion = NumericProperty(0)
-    experience = NumericProperty(0)
     accuracy = NumericProperty(100)
+
+    # Defensive stats, modifiable by armor
+    max_health = NumericProperty(100)
+    defense = NumericProperty(0)
+    evasion = NumericProperty(0)
 
     def __init__(self, name = '',
                  max_health=100,

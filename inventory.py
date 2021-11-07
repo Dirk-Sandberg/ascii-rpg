@@ -15,12 +15,9 @@ class InventoryScreen(Screen):
         super().__init__(*args, **kwargs)
 
     def compare_stats(self, item):
-        all_stat_strings = [
-            self.stat_string(item, 'defense'),
-            self.stat_string(item, 'attack'),
-            self.stat_string(item, 'crit_chance'),
-            self.stat_string(item, 'crit_multiplier')
-        ]
+        all_stat_strings = []
+        for stat in item.modifiable_stats:
+            all_stat_strings.append(self.stat_string(item, stat))
         stat_strings = []
         for stat_string in all_stat_strings:
             if stat_string:
