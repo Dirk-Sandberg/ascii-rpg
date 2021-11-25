@@ -29,7 +29,7 @@ classes - UNLOCKABLE - CHOOSE 2 - CHOOSE ONE PER LEVEL
     Bloodspiller (high dmg at high hp)
     Conquerer (Gain double stats at each level)
     Acrolyte (Craft additional spells)
-    Poisoner (Consecutive melee attacks deal increasing damage)
+    Poisoner (Consecutive melee attacks deal increasing damage, synergizes with high # of attacks stat)
     Thrasher (Ignore melee armor)
     Wisher (damage is randomized between 1 and 2x damage)
     Balance (Can dual wield weapons)
