@@ -35,12 +35,6 @@
             BoxLayout:
                 orientation: 'vertical'
                 Label:
-                    canvas.before:
-                        Color:
-                            rgba: 1,0,0,.1
-                        Rectangle:
-                            size: self.size
-                            pos: self.pos
                     height: self.texture_size[1]
                     size_hint: 1, None
                     id: item0
@@ -49,22 +43,10 @@
                 Label:
                     text: '' if len(root.inventory) < 1 else "[font=RobotoMono-Regular]" + root.compare_stats(root.inventory[0]) + "[/font]"
                     markup: True
-                    canvas.before:
-                        Color:
-                            rgba: 1,1,0,.1
-                        Rectangle:
-                            size: self.size
-                            pos: self.pos
 
             BoxLayout:
                 orientation: 'vertical'
                 Label:
-                    canvas.before:
-                        Color:
-                            rgba: 1,0,0,.1
-                        Rectangle:
-                            size: self.size
-                            pos: self.pos
                     height: self.texture_size[1]
                     size_hint: 1, None
                     id: item1
@@ -73,23 +55,11 @@
                 Label:
                     text: '' if len(root.inventory) < 2 else "[font=RobotoMono-Regular]" + root.compare_stats(root.inventory[1]) + "[/font]"
                     markup: True
-                    canvas.before:
-                        Color:
-                            rgba: 1,1,0,.1
-                        Rectangle:
-                            size: self.size
-                            pos: self.pos
 
 
             BoxLayout:
                 orientation: 'vertical'
                 Label:
-                    canvas.before:
-                        Color:
-                            rgba: 1,0,0,.1
-                        Rectangle:
-                            size: self.size
-                            pos: self.pos
                     height: self.texture_size[1]
                     size_hint: 1, None
                     id: item2
@@ -98,12 +68,6 @@
                 Label:
                     text: '' if len(root.inventory) < 3 else "[font=RobotoMono-Regular]" + root.compare_stats(root.inventory[2]) + "[/font]"
                     markup: True
-                    canvas.before:
-                        Color:
-                            rgba: 1,1,0,.1
-                        Rectangle:
-                            size: self.size
-                            pos: self.pos
         GridLayout:
             rows: 1
             size_hint: 1, .2

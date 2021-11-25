@@ -72,14 +72,14 @@ class InventoryScreen(Screen):
         print("New, old atk", new_item.attack, old_item.attack)
         print("New, old def", new_item.defense, old_item.defense)
 
-        self.inventory[old_item_inventory_slot] = old_item
-        player.attack = player.attack + new_item.attack - old_item.attack
-        player.defense = player.defense + new_item.defense - old_item.defense
-
         if new_item.type == 'weapon':
             self.weapon = new_item
         if new_item.type == 'armor':
             self.armor = new_item
+
+        self.inventory[old_item_inventory_slot] = old_item
+        player.attack = player.attack + new_item.attack - old_item.attack
+        player.defense = player.defense + new_item.defense - old_item.defense
         print("New values", player.attack, player.defense)
 
 
