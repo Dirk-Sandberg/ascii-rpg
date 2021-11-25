@@ -26,13 +26,18 @@ class InventoryScreen(Screen):
         return "\n".join(line for line in stat_strings)
 
     def stat_string(self, item, attribute):
-        player = App.get_running_app().player
+        if item.type == 'weapon':
+            print("weapon stat")
+            current_item = self.weapon
+        if item.type == 'armor':
+            current_item = self.armor
+            print("armor stat")
         try:
             value = getattr(item, attribute)
         except:
             # stat doesn't exist on this piece of equipment
             return ''
-        diff = value - getattr(player, attribute)
+        diff = value - getattr(current_item, attribute)
         if diff > 0:
             # Green
             color = "32CD32"
@@ -63,7 +68,7 @@ class InventoryScreen(Screen):
         print("New, old atk", new_item.attack, old_item.attack)
         print("New, old def", new_item.defense, old_item.defense)
 
-        self.ids['item'+str(old_item_inventory_slot)].text = old_item.name
+        self.inventory[old_item_inventory_slot] = old_item
         player.attack = player.attack + new_item.attack - old_item.attack
         player.defense = player.defense + new_item.defense - old_item.defense
 

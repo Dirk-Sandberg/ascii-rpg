@@ -26,7 +26,11 @@ class Weapon:
     element = '' # Water | Earth | Fire
     attack = ''
     defense = 0
-    accuracy = ''
+    crit_chance = 0
+    crit_multiplier = 0
+    lifesteal = 0
+    accuracy = 0
+    number_of_attacks = 1
     art = ''
     modifiable_stats = [
         'attack',
@@ -49,12 +53,13 @@ class Armor:
     type = 'armor'
     element = '' # Water | Earth | Fire
     attack = 0
+    evasion = 0
     defense = ''
     bonus_health = ''
     art = ''
     modifiable_stats = [
         'defense',
-        'max_health',
+        'bonus_health',
         'evasion'
     ]
 
