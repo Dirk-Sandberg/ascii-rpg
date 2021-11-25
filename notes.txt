@@ -10,6 +10,9 @@ Have people choose one trait from a random group every level
 Unlocking new traits every 10 floors
     Progression at the meta level
 
+Make modifiable_stats a dict instead of list
+    include a 'range' key to randomly choose a value inside range instead of just 0->100
+
 classes - UNLOCKABLE - CHOOSE 2 - CHOOSE ONE PER LEVEL
     Vampire
     Crit spellcaster

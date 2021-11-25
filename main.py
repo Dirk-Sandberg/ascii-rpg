@@ -81,7 +81,8 @@ class MainApp(App):
         item = items.choose_item(self.floor)
         self.root.ids.traits_screen.add_trait(Attacker())
         self.root.ids.inventory.add_item_to_inventory(item)
-        self.add_line_to_text_log(f"You looted a {item.name} off the {self.monster.name}'s dead body.")
+        a_or_an = 'a' if item.name[0] in ['a','e','i','o','u'] else 'an'
+        self.add_line_to_text_log(f"You looted {a_or_an} {self.render(item.element, item.name)} off the {self.monster.name}'s dead body.")
         self.add_line_to_text_log("You made it to the next floor.")
         self.floor += 1
         self.is_home = True

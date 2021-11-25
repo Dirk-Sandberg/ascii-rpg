@@ -1,5 +1,6 @@
 import random
 import os
+from elements import elements
 
 weapons_folder = "art/weapons"
 weapon_files = os.listdir(weapons_folder)
@@ -72,22 +73,34 @@ class Armor:
 
 
 def choose_item(floor):
+    element = random.choice(list(elements.keys()))
+    # Add some spice to the names, e.g. instead of "Stick" -> "Glacial Stick of freezing"
+    # Change elements dict to have adjectives, prefixes, and postfixes?
+    item_name_prefix = random.choice(elements[element]) # Choose a random prefix
+    item_name_postfix = ''
+
     if random.randint(1, 2) == 1:
+        # Armor item
         item_name = random.choice(list(armor.keys()))
         item_art = armor[item_name]
         stats = {}
         for stat in Armor.modifiable_stats:
             stats[stat] = random.choice(range(1, 100))
-        item = Armor(name=item_name, art=item_art)
+        item = Armor(name=item_name_prefix + ' ' + item_name, art=item_art)
         for stat in stats:
             setattr(item, stat, stats[stat])
     else:
+        # Weapon item
         item_name = random.choice(list(weapons.keys()))
         item_art = weapons[item_name]
         stats = {}
         for stat in Weapon.modifiable_stats:
             stats[stat] = random.choice(range(1, 100))
-        item = Weapon(name=item_name, art=item_art)
+        item = Weapon(name=item_name_prefix + ' ' + item_name, art=item_art)
         for stat in stats:
             setattr(item, stat, stats[stat])
+
+    # Set elemental type
+    item.element = element
+
     return item
