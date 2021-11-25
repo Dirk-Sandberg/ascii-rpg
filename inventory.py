@@ -15,6 +15,7 @@ class InventoryScreen(Screen):
         super().__init__(*args, **kwargs)
 
     def compare_stats(self, item):
+        print("Comparing stats with ", item)
         all_stat_strings = []
         for stat in item.modifiable_stats:
             all_stat_strings.append(self.stat_string(item, stat))
@@ -49,7 +50,10 @@ class InventoryScreen(Screen):
         elif diff == 0:
             color = "FFFFFF"
             operator = ''
-        return f"{attribute.replace('_',' ').title()}: {value} [color={color}]({operator}{abs(diff)})[/color]"
+        if diff:
+            return f"{attribute.replace('_',' ').title()}: {value} [color={color}]({operator}{abs(diff)})[/color]"
+        else:
+            return f"{attribute.replace('_', ' ').title()}: {value} [color={color}][/color]"
 
     def add_item_to_inventory(self, item):
         if len(self.inventory) > 2:

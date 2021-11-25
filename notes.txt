@@ -30,6 +30,9 @@ classes - UNLOCKABLE - CHOOSE 2 - CHOOSE ONE PER LEVEL
     Thrasher (Ignore melee armor)
     Wisher (damage is randomized between 1 and 2x damage)
     Balance (Can dual wield weapons)
+    Molten (Double fire bonus)
+    Subzero (Double ice bonus)
+    Tranquil (Double nature bonus)
 
 def calculate_damage():
     damage_dealt = player.damage
