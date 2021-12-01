@@ -3,45 +3,36 @@ from kivy.properties import NumericProperty
 
 class Creature(Widget):
     name = ''
+    max_health = NumericProperty(100)
     current_health = NumericProperty(100)
+    current_health_possibly_negative = NumericProperty(100) # Used to not let people get HP by swapping shields at low HP
     experience = NumericProperty(0)
 
     # Offensive stats, modifiable by weapons
     number_of_attacks = NumericProperty(1)
-    attack = NumericProperty(1)
+    attack = NumericProperty(19)
     crit_chance = NumericProperty(0)
     crit_multiplier = NumericProperty(0)
     lifesteal = NumericProperty(0)
     accuracy = NumericProperty(100)
 
     # Defensive stats, modifiable by armor
-    max_health = NumericProperty(100)
+    bonus_health = NumericProperty(0)
+    old_bonus_health = NumericProperty(0) # Used to find difference between new and old bonus health stats
     defense = NumericProperty(0)
     evasion = NumericProperty(0)
 
-    def __init__(self, name = '',
-                 max_health=100,
-                 number_of_attacks=1,
-                 attack=1,
-                 defense=0,
-                 crit_chance=0,
-                 crit_multiplier=2,
-                 lifesteal=0,
-                 evasion=0,
-                 accuracy=100):
-        self.name = name
-        self.max_health = max_health
-        self.number_of_attacks = number_of_attacks
-        self.attack = attack
-        self.defense = defense
-        self.crit_chance = crit_chance
-        self.crit_multiplier = crit_multiplier
-        self.lifesteal = lifesteal
-        self.evasion = evasion
-        self.accuracy = accuracy
+    def on_bonus_health(self, *args):
+        self.max_health = self.max_health + (self.bonus_health - self.old_bonus_health)
+        self.current_health = self.current_health_possibly_negative + (self.bonus_health - self.old_bonus_health)
+        self.current_health_possibly_negative = self.current_health
+        if self.current_health <= 0:
+            self.current_health = 1
+        self.old_bonus_health = self.bonus_health
 
     def take_damage(self, damage):
         self.current_health -= damage
+        self.current_health_possibly_negative = self.current_health
 
 
 

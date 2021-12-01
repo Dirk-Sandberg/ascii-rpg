@@ -28,8 +28,8 @@ with open("art/camp.txt", "r") as the_file:
 
 class MainApp(App):
     floor = NumericProperty(0)
-    player = Creature(attack=30, crit_chance=50, defense=30)
-    monster = Monster(attack=0, crit_chance=0)
+    player = Creature()
+    monster = Monster()
     weapon = items.Weapon(element='normal')
     armor = None
     is_home = BooleanProperty(True)

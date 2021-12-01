@@ -3,19 +3,13 @@ from kivy.app import App
 from items import Weapon, Armor
 from kivy.properties import ObjectProperty, ListProperty
 from kivy.clock import mainthread
-from kivy.uix.label import Label
-import json
 
 class InventoryScreen(Screen):
     inventory = ListProperty([])
     armor = ObjectProperty(Armor())
     weapon = ObjectProperty(Weapon())
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     def compare_stats(self, item):
-        print("Comparing stats with ", item)
         all_stat_strings = []
         for stat in item.modifiable_stats:
             all_stat_strings.append(self.stat_string(item, stat))
@@ -28,11 +22,9 @@ class InventoryScreen(Screen):
 
     def stat_string(self, item, attribute):
         if item.type == 'weapon':
-            print("weapon stat")
             current_item = self.weapon
         if item.type == 'armor':
             current_item = self.armor
-            print("armor stat")
         try:
             value = getattr(item, attribute)
         except:
@@ -68,9 +60,6 @@ class InventoryScreen(Screen):
             old_item = self.weapon
         if new_item.type == 'armor':
             old_item = self.armor
-        print("Equipping", new_item.name, "replacing", old_item.name)
-        print("New, old atk", new_item.attack, old_item.attack)
-        print("New, old def", new_item.defense, old_item.defense)
 
         if new_item.type == 'weapon':
             self.weapon = new_item
@@ -78,10 +67,8 @@ class InventoryScreen(Screen):
             self.armor = new_item
 
         self.inventory[old_item_inventory_slot] = old_item
-        player.attack = player.attack + new_item.attack - old_item.attack
-        player.defense = player.defense + new_item.defense - old_item.defense
-        print("New values", player.attack, player.defense)
-
-
-
-
+        # player.attack = player.attack + new_item.attack - old_item.attack
+        # player.defense = player.defense + new_item.defense - old_item.defense
+        for stat in new_item.modifiable_stats:
+            new_stat_value = getattr(player, stat) + getattr(new_item, stat) - getattr(old_item, stat)
+            setattr(player, stat, new_stat_value)

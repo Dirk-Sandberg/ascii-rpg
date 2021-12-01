@@ -56,7 +56,7 @@ class Armor:
     attack = 0
     evasion = 0
     defense = ''
-    bonus_health = ''
+    bonus_health = 0
     art = ''
     modifiable_stats = [
         'defense',
