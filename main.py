@@ -72,8 +72,6 @@ class MainApp(App):
             self.add_line_to_text_log(f"Your elemental bonus was {element_modifier}. You crit the monster for {dealt_damage}. Took {self.monster.attack - self.player.defense} damage from {self.monster.name}")
         else:
             self.add_line_to_text_log(f"Your elemental bonus was {element_modifier}. You hurt the monster for {dealt_damage}. Took {self.monster.attack - self.player.defense} damage from {self.monster.name}")
-        print("???", self.monster.current_health)
-        print("EGG", self.player.current_health)
 
     def disembark(self):
         self.show_homescreen()
