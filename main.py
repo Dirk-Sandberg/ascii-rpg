@@ -35,11 +35,11 @@ class MainApp(App):
     is_home = BooleanProperty(True)
 
     def on_start(self):
-        self.show_homescreen(text="You're sitting in front of a campfire")
+        self.show_homescreen(text=self.render("You're sitting in front of a campfire"))
 
     def show_homescreen(self, text="You're back at the campfire"):
-        self.root.ids.combat.text = self.render('normal', HOME_ART)
-        self.add_line_to_text_log(text)
+        self.root.ids.combat.text = self.render(HOME_ART)
+        self.add_line_to_text_log(self.render(text))
 
     def add_line_to_text_log(self, line):
         self.root.ids.log.add_line(line)
@@ -48,7 +48,7 @@ class MainApp(App):
         widget = self.root.ids.combat
         self.root.ids.monster_toolbar.opacity = 1
         self.monster.choose_new_monster(self.floor)
-        widget.text = self.render(self.monster.element, self.monster.art)
+        widget.text = self.render(self.monster.art, self.monster.element)
         self.is_home = False
 
     def attack(self):
@@ -64,7 +64,7 @@ class MainApp(App):
         self.monster.take_damage(dealt_damage)
         # self.root.ids.monster_toolbar.text = f"{self.monster.name}--------HP: {self.monster.current_health} ATK: {self.monster.attack}"
         if self.monster.current_health <= 0:
-            self.add_line_to_text_log(f"You killed the {self.monster.name}")
+            self.add_line_to_text_log(self.render(f"You killed the {self.monster.name}"))
             self.disembark()
             return
         self.player.take_damage(received_damage)
@@ -79,13 +79,13 @@ class MainApp(App):
         item = items.choose_item(self.floor)
         self.root.ids.traits_screen.add_trait(Attacker())
         self.root.ids.inventory.add_item_to_inventory(item)
-        a_or_an = 'a' if item.name[0] in ['a','e','i','o','u'] else 'an'
-        self.add_line_to_text_log(f"You looted {a_or_an} {self.render(item.element, item.name)} off the {self.monster.name}'s dead body.")
+        a_or_an = 'an' if item.name[0].lower() in ['a','e','i','o','u'] else 'a'
+        self.add_line_to_text_log(f"You looted {a_or_an} {self.render(item.name, item.element)} off the {self.monster.name}'s dead body.")
         self.add_line_to_text_log("You made it to the next floor.")
         self.floor += 1
         self.is_home = True
 
-    def render(self, element, text):
+    def render(self, text, element='normal'):
         return f"[font=RobotoMono-Regular][color={element_colors[element]}]{text}[/color][/font]"
 
     @mainthread
