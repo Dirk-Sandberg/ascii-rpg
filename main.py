@@ -51,28 +51,6 @@ class MainApp(App):
         widget.text = self.render(self.monster.art, self.monster.element)
         self.is_home = False
 
-    def attack(self):
-        # Calculate damage
-        crit = random.randint(1, 100) <= self.player.crit_chance
-        element_modifier = elements.calculate_modifier(self.weapon.element, self.monster.element)
-        if crit:
-            dealt_damage = self.player.crit_multiplier * self.player.attack * element_modifier - self.monster.defense
-        else:
-            dealt_damage = self.player.attack * element_modifier - self.monster.defense
-
-        received_damage = self.monster.attack - self.player.defense
-        self.monster.take_damage(dealt_damage)
-        # self.root.ids.monster_toolbar.text = f"{self.monster.name}--------HP: {self.monster.current_health} ATK: {self.monster.attack}"
-        if self.monster.current_health <= 0:
-            self.add_line_to_text_log(self.render(f"You killed the {self.monster.name}"))
-            self.disembark()
-            return
-        self.player.take_damage(received_damage)
-        if crit:
-            self.add_line_to_text_log(f"Your elemental bonus was {element_modifier}. You crit the monster for {dealt_damage}. Took {self.monster.attack - self.player.defense} damage from {self.monster.name}")
-        else:
-            self.add_line_to_text_log(f"Your elemental bonus was {element_modifier}. You hurt the monster for {dealt_damage}. Took {self.monster.attack - self.player.defense} damage from {self.monster.name}")
-
     def disembark(self):
         self.show_homescreen()
         self.root.ids.monster_toolbar.opacity = 0
@@ -81,7 +59,7 @@ class MainApp(App):
         self.root.ids.inventory.add_item_to_inventory(item)
         a_or_an = 'an' if item.name[0].lower() in ['a','e','i','o','u'] else 'a'
         self.add_line_to_text_log(f"You looted {a_or_an} {self.render(item.name, item.element)} off the {self.monster.name}'s dead body.")
-        self.add_line_to_text_log("You made it to the next floor.")
+        # self.add_line_to_text_log("You made it to the next floor.")
         self.floor += 1
         self.is_home = True
 
@@ -91,6 +69,68 @@ class MainApp(App):
     @mainthread
     def change_screen(self, new_screen):
         self.root.current = new_screen
+
+    def calculate_crit_stats(self):
+        """Do any necessary calculations based on traits."""
+        crit = random.randint(1, 100) <= self.player.crit_chance
+        if crit:
+            crit_multiplier = self.player.crit_multiplier
+        else:
+            crit_multiplier = 1.0
+        return {
+            'crit': crit,
+            'crit_multiplier': crit_multiplier
+        }
+
+    def attack(self):
+        player = self.player
+        damages_dealt = []
+
+        for attack_number in range(int(player.number_of_attacks/player.number_of_attacks)):
+            # Calculate elemental bonus
+            element_modifier = elements.calculate_modifier(self.weapon.element, self.monster.element)
+
+            # Calculate crit bonus. multiplier is 1.0 if no crit
+            crit_stats = self.calculate_crit_stats()
+
+            # Calculate additive trait bonus
+            base_damage_bonus = 0
+            multiplicative_bonus = 1
+            for trait in player.traits:
+                base_damage_bonus = trait.modify_base_damage(base_damage_bonus) # attack_number as argument for poison
+                multiplicative_bonus = trait.modify_multiplicative_damage(multiplicative_bonus)
+
+            # Calculate multiplicative trait bonus
+            damage_dealt = self.player.attack + base_damage_bonus
+            damage_dealt *= crit_stats['crit_multiplier']
+            damage_dealt *= multiplicative_bonus
+            damage_dealt *= element_modifier
+            damage_dealt -= self.monster.defense
+            damages_dealt.append(damage_dealt)
+
+
+        # Display text log
+        self.add_line_to_text_log(f"Crit? {crit_stats['crit']}. Damage dealt: {damages_dealt}")
+        # self.add_line_to_text_log(f"Your elemental bonus was {element_modifier}. You CRIT the monster for {damage_dealt}. Took {received_damage} damage from {self.monster.name}")
+
+        # Subtract monster HP
+        self.monster.take_damage(damage_dealt)
+        if self.monster.current_health <= 0:
+            self.add_line_to_text_log(
+                self.render(f"You killed the {self.monster.name}"))
+            self.disembark()
+            return
+
+        # Player takes damage
+        received_damage = self.monster.attack - self.player.defense
+        if received_damage < 0:
+            # Shield can't block so much damage that you take negative damage
+            received_damage = 0
+
+        for trait in player.traits:
+            received_damage += trait.modify_damage_received(sum(damages_dealt))
+
+        self.player.take_damage(received_damage)
 
 
 

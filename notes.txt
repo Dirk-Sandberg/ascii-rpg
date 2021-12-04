@@ -36,6 +36,7 @@ classes - UNLOCKABLE - CHOOSE 2 - CHOOSE ONE PER LEVEL
     Molten (Double fire bonus)
     Subzero (Double ice bonus)
     Tranquil (Double nature bonus)
+    Clobber (First attack each encounter deals double damage)
 
 def calculate_damage():
     damage_dealt = player.damage

@@ -8,6 +8,8 @@ class Creature(Widget):
     current_health_possibly_negative = NumericProperty(100) # Used to not let people get HP by swapping shields at low HP
     experience = NumericProperty(0)
 
+    traits = []  # List of all traits that modify damage
+
     # Offensive stats, modifiable by weapons
     number_of_attacks = NumericProperty(1)
     attack = NumericProperty(19)
